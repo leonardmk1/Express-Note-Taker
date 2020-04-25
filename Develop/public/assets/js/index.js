@@ -75,7 +75,7 @@ var handleNoteDelete = function(event) {
     activeNote = {};
   }
 
-  deleteNote(note.id).then(function() {
+  deleteNote($(this).parent(".list-group-item").attr("data-id")).then(function() {
     getAndRenderNotes();
     renderActiveNote();
   });
@@ -112,7 +112,7 @@ var renderNoteList = function(notes) {
   for (var i = 0; i < notes.length; i++) {
     var note = notes[i];
 
-    var $li = $("<li class='list-group-item'>").data(note);
+    var $li = $(`<li class='list-group-item' data-id="${note.id}">`).data(note);
     var $span = $("<span>").text(note.title);
     var $delBtn = $(
       "<i class='fas fa-trash-alt float-right text-danger delete-note'>"

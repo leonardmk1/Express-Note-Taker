@@ -1,9 +1,11 @@
-const db = require("../db/db.json");
-const fs = require("fs")
+const fs = require("fs");
 
 module.exports = function(app) {
 
     app.get("/api/notes", function(req, res) {
+        delete require.cache[require.resolve("../db/db.json")]
+        const db = require("../db/db.json");
+        console.log(db);
         res.send(db);
       });
 
@@ -21,8 +23,9 @@ module.exports = function(app) {
             readNote.push(newNote);
             var writeNote = JSON.stringify(readNote);
 
-            fs.writeFile("Develop/db/db.json", writeNote, function(err, data) {
+            fs.writeFile("Develop/db/db.json", writeNote, function(err) {
                 if (err) throw err;
+                db = require("../db/db.json");
                 res.redirect("/notes");
             })
         });

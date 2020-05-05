@@ -11,7 +11,10 @@ var activeNote = {};
 var getNotes = function() {
   return $.ajax({
     url: "/api/notes",
-    method: "GET"
+    method: "GET",
+    success: function(res){
+      console.log(res);
+    }
   });
 };
 
